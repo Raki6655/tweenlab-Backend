@@ -12,13 +12,21 @@ mongoose
 	.then((res) => console.log("Database Connected"));
 app.use(urlencoded({ extended: true }));
 app.use(express.json({ limit: "5mb" }));
-app.use(
-	cors({
-		origin: "*",
-	})
-);
-app.use("/api", require("./routes/appointments"));
-app.use("/message", require("./routes/messages"));
+
+var corsOptions = {
+	origin: "https://tweenlab.com",
+	optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+// app.use(
+// 	cors({
+// 		origin: "*",
+// 	})
+// );
+app.use("/api", cors(corsOptions), require("./routes/appointments"));
+app.use("/message", cors(corsOptions), require("./routes/messages"));
+
+app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/.next"));
