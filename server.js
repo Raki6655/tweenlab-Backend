@@ -13,18 +13,20 @@ mongoose
 app.use(urlencoded({ extended: true }));
 app.use(express.json({ limit: "5mb" }));
 
-var corsOptions = {
-	origin: "https://tweenlab.com",
-	optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+// var corsOptions = {
+// 	origin: "https://tweenlab.com",
+// 	optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
 
-// app.use(
-// 	cors({
-// 		origin: "*",
-// 	})
-// );
-app.use("/api", cors(corsOptions), require("./routes/appointments"));
-app.use("/message", cors(corsOptions), require("./routes/messages"));
+const corsOptions = {
+	origin: "*", // Allow all origins (you can replace with a specific origin)
+	methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
+	allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+	credentials: true, // Allow cookies/auth headers
+};
+app.use(cors(corsOptions));
+app.use("/api", require("./routes/appointments"));
+app.use("/message", require("./routes/messages"));
 
 app.use(cors());
 
