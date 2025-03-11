@@ -25,9 +25,9 @@ const corsOptions = {
 	credentials: true, // Allow cookies/auth headers
 };
 app.use(cors(corsOptions));
-app.use("/", (req, res) => {
-	res.send("<h1>Hello,Welcome to TweenLab</>");
-});
+// app.use("/", (req, res) => {
+// 	res.send("<h1>Hello,Welcome to TweenLab</>");
+// });
 app.use("/api", require("./routes/appointments"));
 app.use("/message", require("./routes/messages"));
 
